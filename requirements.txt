@@ -1,0 +1,19 @@
+# 依赖列表。左列为代码所需的最低版本，右侧注释为产生论文结果时的实际环境版本，供精确复现。
+#
+#   包                  最低版本        结果产生时的版本
+numpy>=1.26          # 1.26.4
+pandas>=2.2          # 2.3.3
+pyarrow>=15.0        # 23.0.0
+scipy>=1.12          # 1.17.0
+scikit-learn>=1.4    # 1.8.0
+matplotlib>=3.8      # 3.10.8
+PyYAML>=6.0          # 6.0
+torch>=2.4           # 2.11.0+cu128
+pytest>=8.0          # 9.0.3
+
+# Note on reproducibility: results in the paper were produced on an NVIDIA RTX 5090
+# with CUDA 12.8. Training is NOT bit-reproducible across runs even at a fixed seed,
+# because cuDNN autotuning, TF32 arithmetic and non-deterministic recurrent kernels
+# introduce run-to-run variation. The manuscript measures this explicitly
+# (median 0.22% MAE, up to 10% on individual tasks) and reports every margin against
+# that floor. Expect to reproduce the reported conclusions, not the exact digits.

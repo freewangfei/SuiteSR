@@ -1,0 +1,44 @@
+device: auto
+scales:
+- 2
+- 4
+- 8
+window: 128
+stride: 128
+max_windows_per_split:
+  train: 1024
+  val: 256
+  test: 512
+batch_size: 256
+epochs: 300
+min_train_epochs: 100
+patience: 30
+learning_rate: 0.0006
+train_degradations: []
+test_degradations: []
+aux_scale_divisor: 2
+seed: 2027
+datasets:
+- taranaki
+curves_by_dataset:
+  taranaki:
+  - GR
+  - DTC
+  - RHOB
+output_dir: results/v7_native2/taranaki/seed2027
+methods:
+  transformer_native:
+    arch: transformer_native
+    multi: true
+    channels: 48
+    depth: 3
+    loss: &id001
+      l1: 1.0
+      gradient: 0.15
+      spectral: 0.02
+  cascade_sr_native:
+    arch: cascade_sr_native
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001

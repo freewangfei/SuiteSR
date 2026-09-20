@@ -1,0 +1,64 @@
+seed: 2026
+device: auto
+datasets:
+- cnfield
+curves_by_dataset:
+  cnfield:
+  - GR
+  - DTC
+  - RHOB
+  - NPHI
+scales:
+- 2
+- 4
+- 8
+window: 128
+stride: 128
+max_windows_per_split:
+  train: 1024
+  val: 256
+  test: 512
+batch_size: 256
+epochs: 300
+min_train_epochs: 100
+patience: 30
+learning_rate: 0.0006
+train_degradations: []
+test_degradations: []
+aux_scale_divisor: 2
+output_dir: results/v5_descriptors/cnfield/seed2026
+methods:
+  geosr2_dropgrad:
+    arch: geosr2_dropgrad
+    multi: true
+    channels: 32
+    depth: 3
+    loss: &id001
+      l1: 1.0
+      mse: 0.35
+      gradient: 0.12
+      spectral: 0.012
+  geosr2_droprough:
+    arch: geosr2_droprough
+    multi: true
+    channels: 32
+    depth: 3
+    loss: *id001
+  geosr2_dropcurv:
+    arch: geosr2_dropcurv
+    multi: true
+    channels: 32
+    depth: 3
+    loss: *id001
+  geosr2_ma5:
+    arch: geosr2_ma5
+    multi: true
+    channels: 32
+    depth: 3
+    loss: *id001
+  geosr2_ma15:
+    arch: geosr2_ma15
+    multi: true
+    channels: 32
+    depth: 3
+    loss: *id001

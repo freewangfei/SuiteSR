@@ -1,0 +1,94 @@
+seed: 2028
+device: auto
+datasets:
+- cnfield
+curves_by_dataset:
+  cnfield:
+  - GR
+  - DTC
+  - RHOB
+  - NPHI
+scales:
+- 4
+- 8
+window: 128
+stride: 128
+max_windows_per_split:
+  train: 1024
+  val: 256
+  test: 512
+batch_size: 256
+epochs: 300
+min_train_epochs: 100
+patience: 30
+learning_rate: 0.0006
+train_degradations: []
+test_degradations:
+- kind: gaussian
+  sigma_factor: 0.75
+  label: gaussian_0.75
+- kind: gaussian
+  sigma_factor: 1.25
+  label: gaussian_1.25
+- kind: box
+  label: box
+- kind: gaussian
+  sigma_factor: 0.6
+  label: gaussian_0.6
+- kind: gaussian
+  sigma_factor: 1.5
+  label: gaussian_1.5
+- kind: box
+  width_factor: 1.5
+  label: box_1.5
+- kind: triangle
+  width_factor: 1.0
+  label: triangle
+- kind: exp
+  sigma_factor: 0.5
+  label: exp_asym
+aux_scale_divisor: 2
+output_dir: results/v5_robust/cnfield/seed2028
+methods:
+  ssm:
+    multi: false
+    channels: 48
+    depth: 3
+    loss: &id001
+      l1: 1.0
+      gradient: 0.15
+      spectral: 0.02
+  ssm_multi:
+    arch: ssm
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001
+  ssm_native:
+    arch: ssm_native
+    multi: true
+    channels: 48
+    depth: 3
+    loss:
+      l1: 1.0
+      gradient: 0.15
+      spectral: 0.02
+  geosr2:
+    arch: geosr2
+    multi: true
+    channels: 32
+    depth: 3
+    loss:
+      l1: 1.0
+      mse: 0.35
+      gradient: 0.12
+      spectral: 0.012
+  ssm_morph_native:
+    arch: ssm_morph_native
+    multi: true
+    channels: 48
+    depth: 3
+    loss:
+      l1: 1.0
+      gradient: 0.15
+      spectral: 0.02

@@ -1,0 +1,43 @@
+seed: 2026
+device: auto
+datasets:
+- geolink
+curves_by_dataset:
+  geolink:
+  - GR
+  - DTC
+  - RHOB
+  - NPHI
+scales:
+- 2
+- 4
+- 8
+window: 128
+stride: 128
+max_windows_per_split:
+  train: 1024
+  val: 256
+  test: 512
+batch_size: 256
+epochs: 300
+min_train_epochs: 100
+patience: 30
+learning_rate: 0.0006
+train_degradations: []
+test_degradations: []
+aux_scale_divisor: 2
+output_dir: results/v5_shiftnat/geolink/seed2026
+methods:
+  ssm_native:
+    arch: ssm_native
+    multi: true
+    channels: 48
+    depth: 3
+    loss:
+      l1: 1.0
+      gradient: 0.15
+      spectral: 0.02
+test_guide_shifts:
+- 1
+- 2
+- 4

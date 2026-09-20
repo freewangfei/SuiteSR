@@ -1,0 +1,36 @@
+seed: 2027
+device: cuda
+datasets: [geolink, taranaki, teapot, cnfield]
+curves_by_dataset:
+  geolink: [GR, DTC, RHOB, NPHI]
+  taranaki: [GR, DTC, RHOB]
+  teapot: [GR, RHOB, NPHI]
+  cnfield: [GR, DTC, RHOB, NPHI]
+scales: [4, 8]
+window: 128
+context_window: 256
+stride: 128
+max_windows_per_split: {train: 4096, val: 512, test: 512}
+batch_size: 512
+epochs: 300
+min_train_epochs: 100
+patience: 30
+learning_rate: 0.0006
+train_degradations: []
+test_degradations: []
+aux_scale_divisor: 2
+response_scope: continuous
+include_target_observation_mask: true
+output_dir: results/continuous_response_context_obsmask_formal/seed2027
+save_predictions: true
+methods:
+  geosr2_observation_aware_context256:
+    arch: geosr2_obs_mask
+    multi: true
+    channels: 64
+    depth: 4
+    loss:
+      l1: 1.0
+      mse: 0.35
+      gradient: 0.12
+      spectral: 0.012

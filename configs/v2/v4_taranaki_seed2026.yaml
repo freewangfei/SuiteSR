@@ -1,0 +1,104 @@
+seed: 2026
+device: auto
+datasets:
+- taranaki
+curves_by_dataset:
+  taranaki:
+  - GR
+  - DTC
+  - RHOB
+scales:
+- 2
+- 4
+- 8
+window: 128
+stride: 128
+max_windows_per_split:
+  train: 4096
+  val: 512
+  test: 512
+batch_size: 256
+epochs: 300
+min_train_epochs: 100
+patience: 30
+learning_rate: 0.0006
+train_degradations: []
+test_degradations: []
+aux_scale_divisor: 2
+output_dir: results/v4_guided/taranaki/seed2026
+methods:
+  pchip: {}
+  lstm:
+    multi: false
+    channels: 48
+    depth: 3
+    loss: &id001
+      l1: 1.0
+      gradient: 0.15
+      spectral: 0.02
+  ssm:
+    multi: false
+    channels: 48
+    depth: 3
+    loss: *id001
+  dmcnet:
+    multi: false
+    channels: 48
+    depth: 3
+    loss: *id001
+  cascade_sr:
+    multi: false
+    channels: 48
+    depth: 3
+    loss: *id001
+  transformer:
+    multi: false
+    channels: 48
+    depth: 3
+    loss: *id001
+  lstm_multi:
+    arch: lstm
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001
+  ssm_multi:
+    arch: ssm
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001
+  dmcnet_multi:
+    arch: dmcnet
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001
+  cascade_sr_multi:
+    arch: cascade_sr
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001
+  transformer_multi:
+    arch: transformer
+    multi: true
+    channels: 48
+    depth: 3
+    loss: *id001
+  geosr2:
+    arch: geosr2
+    multi: true
+    channels: 32
+    depth: 3
+    loss: &id002
+      l1: 1.0
+      mse: 0.35
+      gradient: 0.12
+      spectral: 0.012
+  geosr2_single:
+    arch: geosr2
+    multi: false
+    channels: 32
+    depth: 3
+    loss: *id002
